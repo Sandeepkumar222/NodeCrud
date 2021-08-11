@@ -22,6 +22,7 @@ const schema = require('../shared/schema')
 const service = {
     async login(req, res){
         const data = req.body;
+      console.log(data);
         try {
             //initializig the schema
             const {error} = schema.login.validate(data,options);
