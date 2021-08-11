@@ -12,12 +12,19 @@ const bcrypt = require("bcrypt")
 //schema for register and login
 const schema = require('../shared/schema')
 
+  // schema options
+    const options = {
+        abortEarly: false, // include all errors
+        allowUnknown: true, // ignore unknown props
+        stripUnknown: true // remove unknown props
+    };
+
 const service = {
     async login(req, res){
         const data = req.body;
         try {
             //initializig the schema
-            const {error} = schema.login.validate(data);
+            const {error} = schema.login.validate(data,options);
             if(error) return res.status(400).send({error : error.details[0].message})
         
             //check for email
@@ -42,7 +49,7 @@ const service = {
         const data = req.body;
         try {
         //initializig the schema
-        const {error} = schema.register.validate(data);
+        const {error} = schema.register.validate(data,options);
         if(error) return res.status(400).send({error : error.details[0].message})
         
         // checking for email existance
