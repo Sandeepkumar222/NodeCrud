@@ -30,10 +30,10 @@ async function AppServer() {
     //Middelwares
     app.use(express.json());
 
-    app.use((req, res, next) => {
-      console.log("Allowed");
-      next();
-    });
+//     app.use((req, res, next) => {
+//       console.log("Allowed");
+//       next();
+//     });
 
     //Routes
     app.use("/auth", authRoute);
