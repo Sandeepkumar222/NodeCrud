@@ -46,7 +46,9 @@ async function AppServer() {
           const bearer = header.split(" ");
           const token = bearer[0];
           console.log(bearer);
+          console.log("yes entered")
           const userid = jwt.verify(token, process.env.TOKEN_SECRET);
+          console.log("verifoed")
           console.log(userid);
           return next();
         }
