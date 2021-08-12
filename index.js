@@ -39,21 +39,22 @@ async function AppServer() {
     app.use("/auth", authRoute);
 
     //Checking token
-    app.use((req, res, next) => {
-       const header = req.headers['access-token'];
-   try{
-      if(typeof header !== 'undefined')
-    {
-       const bearer = header.split(' ');
-       const token = bearer[1];
-          const  userid  = jwt.verify(token, process.env.TOKEN_SECRET);
+       app.use((req, res, next) => {
+      const header = req.headers["access-token"];
+      try {
+        if (typeof header !== "undefined") {
+          const bearer = header.split(" ");
+          const token = bearer[0];
+          console.log(bearer);
+          const userid = jwt.verify(token, process.env.TOKEN_SECRET);
           console.log(userid);
           return next();
-        } catch (error) {
-          console.log(error);
-          res.status(401).send("invalid token");
         }
+      } catch (error) {
+        console.log(error);
+        res.status(401).send("invalid token");
       }
+
       res.send("token is missing");
     });
 
