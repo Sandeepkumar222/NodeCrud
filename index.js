@@ -40,10 +40,12 @@ async function AppServer() {
 
     //Checking token
     app.use((req, res, next) => {
-      const token = req.headers["access-token"];
-      console.log(token);
-      if (token) {
-        try {
+       const header = req.headers['access-token'];
+   try{
+      if(typeof header !== 'undefined')
+    {
+       const bearer = header.split(' ');
+       const token = bearer[1];
           const  userid  = jwt.verify(token, process.env.TOKEN_SECRET);
           console.log(userid);
           return next();
